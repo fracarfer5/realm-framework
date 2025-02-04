@@ -1,0 +1,32 @@
+PENDULUM
+The system features a pendulum fixed at one end, with the other end free to move. Initially positioned randomly, the objective is to apply torque to the free end to achieve a desired swing.
+The observation space (`observation`) is a ndarray of shape (2,) that includes the pendulum's angle free end (ranging from 0 to 2 pi) and its angular velocity (ranging from -12 pi to 12 pi radians per second). The angle is defined as the angle of the pendulum relative to the horizontal axis being `pi` the upright position.
+The action space (`action`) is a ndarray of shape (1,) representing the torque applied to the pendulum's free end, with values ranging from -3 to 3.
+
+
+CARTPOLE-BALANCING
+The system features a pole attached by an un-actuated joint to a cart, which moves along a frictionless track. The pendulum is placed upright on the cart and the goal is to balance the pole by applying forces in the left and right direction on the cart.
+The observation space (`observation`) is a ndarray with shape (4,) representing the cart position (ranging from -2.4 to 2.4 meters); the pole angle with respecto to the vertical axis (ranging from -0.2 to 0.2 radians); the cart velocity (ranging from -5 to 5); and the pole angular velocity (ranging from -pi to pi).
+The action space (`action`) is a ndarray with shape (1,), which can take continuous values between (-15, 15) indicating the direction of the fixed force the cart is pushed with.
+
+
+CARTPOLE-SWNIGUP
+The system features a pole attached by an un-actuated joint to a cart, which moves along a frictionless track. The objective is to swing the pole from a downward position to an upright one and maintain it in balance by applying appropriate forces to the cart in the left and right direction. The cart should be kept in the zero (0) position, and the pole should be kept upright.
+The observation space (`observation`) is a ndarray with shape (4,) representing the cart position (ranging from -2.4 to 2.4 meters); the pole angle with respecto to the vertical axis (ranging from 0 to 2 pi radians), being `pi` the upright position; the cart velocity (ranging from -10 to 10); and the pole angular velocity (ranging from -5 pi to 5 pi).
+The action space (`action`) is a ndarray with shape (1,), which can take continuous values between (-15, 15) indicating the direction of the fixed force the cart is pushed with.
+
+
+FLYER2D
+The 2D Flyer system models a flyer as a rod that is controlled by two forces applied perpendicularly at each end of the rod, corresponding to the left and right propellers. The goal of the system is to reach a state where the vector state is [0, 0, 0, 0, 0, 0].
+
+The system's state includes the position, velocity, and angle of the rod. As a result, the state space is represented by a 6-dimensional array (ndarray) with the following components:
+
+    x position: Ranges from -1 to 1 meter
+    y position: Ranges from -1 to 1 meter
+    horizontal angle: Ranges from -pi to pi radians
+    x velocity: Ranges from -10 to 10 meters per second
+    y velocity: Ranges from -10 to 10 meters per second
+    angular velocity: Ranges from -10 pi to 10 pi radians per second
+
+The action space, is represented by a 2-dimensional array (ndarray) with two values, corresponding to the forces applied by the left and right propellers. Each force can be individually controlled, and each force value ranges from -0.1 to 0.1 N.
+
