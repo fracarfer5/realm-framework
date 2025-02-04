@@ -1,0 +1,173 @@
+Generation 0
+import numpy as np
+
+def reward(action, obs):
+    """
+    Calculate the reward based on the cart-pole's state and action.
+    
+    Parameters:
+    action (ndarray): The action taken, a single value representing the force applied on the cart.
+    obs (ndarray): The current observation state containing:
+        - obs[0]: Cart position (ranging from -2.4 to 2.4 meters)
+        - obs[1]: Pole angle (ranging from -0.2 to 0.2 radians)
+        - obs[2]: Cart velocity (ranging from -5 to 5)
+        - obs[3]: Pole angular velocity (ranging from -π to π)
+    
+    Returns:
+    float: Reward value based on the pole position and angle.
+    """
+    
+    # Unpack the observation
+    cart_position, pole_angle, cart_velocity, pole_angular_velocity = obs
+    
+    # Define the reward based on the pole angle; closer to upright gives higher rewards
+    pole_angle_threshold = 0.1  # angle threshold for reward scaling
+    angle_reward = max(0, 1 - abs(pole_angle) / pole_angle_threshold)
+    
+    # Adjust reward for cart position to penalize if it's out of bounds
+    position_penalty = -1 if (cart_position < -2.4 or cart_position > 2.4) else 0
+    
+    # Combine rewards
+    rew = angle_reward + position_penalty
+    
+    return rew
+
+Generation 1
+import numpy as np
+
+def reward(action, obs):
+    """
+    Calculate the reward based on the cart-pole's state and action.
+    
+    Parameters:
+    action (ndarray): The action taken, a single value representing the force applied on the cart.
+    obs (ndarray): The current observation state containing:
+        - obs[0]: Cart position (ranging from -2.4 to 2.4 meters)
+        - obs[1]: Pole angle (ranging from -0.2 to 0.2 radians)
+        - obs[2]: Cart velocity (ranging from -5 to 5)
+        - obs[3]: Pole angular velocity (ranging from -π to π)
+    
+    Returns:
+    float: Reward value based on the pole position and angle.
+    """
+    
+    # Unpack the observation
+    cart_position, pole_angle, cart_velocity, pole_angular_velocity = obs
+    
+    # Define the reward based on the pole angle; closer to upright gives higher rewards
+    pole_angle_threshold = 0.1  # angle threshold for reward scaling
+    angle_reward = max(0, 1 - abs(pole_angle) / pole_angle_threshold)
+    
+    # Adjust reward for cart position to penalize if it's out of bounds
+    position_penalty = -1 if (cart_position < -2.4 or cart_position > 2.4) else 0
+    
+    # Combine rewards
+    rew = angle_reward + position_penalty
+    
+    return rew
+
+Generation 2
+import numpy as np
+
+def reward(action, obs):
+    """
+    Calculate the reward based on the cart-pole's state and action.
+    
+    Parameters:
+    action (ndarray): The action taken, a single value representing the force applied on the cart.
+    obs (ndarray): The current observation state containing:
+        - obs[0]: Cart position (ranging from -2.4 to 2.4 meters)
+        - obs[1]: Pole angle (ranging from -0.2 to 0.2 radians)
+        - obs[2]: Cart velocity (ranging from -5 to 5)
+        - obs[3]: Pole angular velocity (ranging from -π to π)
+    
+    Returns:
+    float: Reward value based on the pole position and angle.
+    """
+    
+    # Unpack the observation
+    cart_position, pole_angle, cart_velocity, pole_angular_velocity = obs
+    
+    # Define the reward based on the pole angle; closer to upright gives higher rewards
+    pole_angle_threshold = 0.1  # angle threshold for reward scaling
+    angle_reward = max(0, 1 - abs(pole_angle) / pole_angle_threshold)
+    
+    # Adjust reward for cart position to penalize if it's out of bounds
+    position_penalty = -1 if (cart_position < -2.4 or cart_position > 2.4) else 0
+    
+    # Combine rewards
+    rew = angle_reward + position_penalty
+    
+    return rew
+
+Generation 3
+import numpy as np
+
+def reward(action, obs):
+    """
+    Calculate the reward based on the cart-pole's state and action.
+    
+    Parameters:
+    action (ndarray): The action taken, a single value representing the force applied on the cart.
+    obs (ndarray): The current observation state containing:
+        - obs[0]: Cart position (ranging from -2.4 to 2.4 meters)
+        - obs[1]: Pole angle (ranging from -0.2 to 0.2 radians)
+        - obs[2]: Cart velocity (ranging from -5 to 5)
+        - obs[3]: Pole angular velocity (ranging from -π to π)
+    
+    Returns:
+    float: Reward value based on the pole position and angle.
+    """
+    
+    # Unpack the observation
+    cart_position, pole_angle, cart_velocity, pole_angular_velocity = obs
+    
+    # Define the reward based on the pole angle; closer to upright gives higher rewards
+    pole_angle_threshold = 0.1  # angle threshold for reward scaling
+    angle_reward = max(0, 1 - abs(pole_angle) / pole_angle_threshold)
+    
+    # Adjust reward for cart position to penalize if it's out of bounds
+    position_penalty = -1 if (cart_position < -2.4 or cart_position > 2.4) else 0
+    
+    # Combine rewards
+    rew = angle_reward + position_penalty
+    
+    return rew
+
+Generation 4
+def reward(action, obs):
+    """
+    Calculate the reward based on the cart-pole's state and action.
+    
+    Parameters:
+    action (ndarray): The action taken, a single value representing the force applied on the cart.
+    obs (ndarray): The current observation state containing:
+        - obs[0]: Cart position (ranging from -2.4 to 2.4 meters)
+        - obs[1]: Pole angle (ranging from -0.2 to 0.2 radians)
+        - obs[2]: Cart velocity (ranging from -5 to 5)
+        - obs[3]: Pole angular velocity (ranging from -π to π)
+    
+    Returns:
+    float: Reward value based on the pole position and angle.
+    """
+    
+    # Unpack the observation
+    cart_position, pole_angle, cart_velocity, pole_angular_velocity = obs
+    
+    # Define the reward based on the pole angle
+    pole_angle_threshold = 0.1  # angle threshold for reward scaling
+    angle_reward = max(0, 1 - abs(pole_angle) / pole_angle_threshold)
+    
+    # Reward for keeping the pole upright (penalize high angular velocity)
+    angular_velocity_penalty = -0.1 * abs(pole_angular_velocity)
+
+    # Adjust reward for cart position to penalize if it's out of bounds
+    position_penalty = -1 if (cart_position < -2.4 or cart_position > 2.4) else 0
+    
+    # Encourage cart to move with some velocity to stabilize
+    velocity_reward = 0.1 * abs(cart_velocity)
+
+    # Combine rewards
+    rew = angle_reward + velocity_reward + position_penalty + angular_velocity_penalty
+    
+    return rew
