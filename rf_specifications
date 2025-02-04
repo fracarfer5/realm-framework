@@ -1,0 +1,11 @@
+PENDULUM
+The reward function gives a high score when the pendulum is close to being upright.
+
+CARTPOLE-BALANCING
+The reward function gives a high score when the pole is close to being upright as much as possible without fall.
+
+CARTPOLE-SWINGUP
+The reward function gives a high score when the pendulum is close to being upright with the cart at zero position.
+
+FLYER2D
+Reward the agent for achieving the goal state within a minimum time frame and then stabilize there.
