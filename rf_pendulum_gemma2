@@ -1,0 +1,75 @@
+Generation 0
+import numpy as np
+
+def reward(action, obs):
+    angle, angular_velocity = obs
+    deviation = np.abs(angle - np.pi)
+    # Reward based on both deviation and angular velocity
+    rew = -(deviation + 0.1 * abs(angular_velocity)) 
+    return rew
+
+Generation 1
+import numpy as np
+
+def reward(action, obs):
+    angle, angular_velocity = obs
+    deviation = np.abs(angle - np.pi)
+    # Reward based on both deviation and angular velocity with scaling and sparsity 
+    rew = -(deviation  + 0.1 * abs(angular_velocity)) 
+    if deviation < 0.1: # Sparse reward for small deviations 
+        rew += 1 
+    return rew
+
+Generation 2
+import numpy as np
+
+def reward(action, obs):
+    angle, angular_velocity = obs
+    deviation = np.abs(angle - np.pi)
+    # Reward based on both deviation and angular velocity with scaling and sparsity 
+    rew = -(deviation  + 0.1 * abs(angular_velocity)) 
+    if deviation < 0.05: # Sparse reward for smaller deviations, encouraging finer control
+        rew += 1 
+
+    # Bonus for reaching upright position
+    if deviation < 0.01:
+        rew += 5   
+    return rew
+
+Generation 3
+import numpy as np
+
+def reward(action, obs):
+    angle, angular_velocity = obs
+    deviation = np.abs(angle - np.pi)
+    # Reward based on both deviation and angular velocity with scaling
+    rew = - (deviation + 0.1 * abs(angular_velocity)) 
+    if deviation < 0.05: # Sparse reward for smaller deviations, encouraging finer control
+        rew += 1
+
+    # Exponential bonus for reaching upright position to encourage faster convergence 
+    if deviation < 0.01:
+      rew += np.exp(-deviation)
+    return rew
+
+Generation 4
+import numpy as np
+
+def reward(action, obs):
+    angle, angular_velocity = obs
+    deviation = np.abs(angle - np.pi)
+
+    # Penalize high angular velocity more heavily when near upright position 
+    if deviation < 0.1:
+      rew = -(deviation + 0.5 * abs(angular_velocity))
+    else:
+      rew = -(deviation + 0.1 * abs(angular_velocity))
+
+    #  Sparse reward for smaller deviations, encouraging finer control
+    if deviation < 0.05:
+        rew += 1
+
+    # Exponential bonus scaled by angular velocity for reaching upright position to encourage smoother and faster convergence
+    if deviation < 0.01:
+      rew += np.exp(-deviation) * (1 - abs(angular_velocity)/(12*np.pi))  
+    return rew
