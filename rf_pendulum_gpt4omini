@@ -1,0 +1,199 @@
+Generation 0
+import numpy as np
+
+def reward(action, obs):
+    """
+    Calculates the reward for the pendulum based on its angle and angular velocity.
+
+    Parameters:
+    action (np.ndarray): An array representing the torque applied to the pendulum, shape (1,).
+    obs (np.ndarray): An array representing the current state of the pendulum, shape (2,), 
+                     where obs[0] is the angle (0 to 2*pi) and obs[1] is the angular velocity 
+                     (-12*pi to 12*pi).
+
+    Returns:
+    float: The calculated reward based on the pendulum's state.
+    """
+
+    # Extracting angle and angular velocity from the observation
+    angle = obs[0]
+    angular_velocity = obs[1]
+
+    # Normalize angle difference to be within [-pi, pi]
+    angle_diff = np.abs((angle - np.pi + np.pi) % (2 * np.pi) - np.pi)
+    
+    # Calculate rewards based on angle difference with a potential threshold
+    if angle_diff < 0.1:  # 10 degrees tolerance
+        rew_angle = 1.0  # Full reward close to upright
+    elif angle_diff < 0.5:  # 30 degrees tolerance
+        rew_angle = 1.0 - (angle_diff / 0.5)  # Linear decay
+    else:
+        rew_angle = 0.0  # No reward if too far from upright
+    
+    # Penalizing for high angular velocity with a sharper penalty function
+    rew_velocity = np.exp(-np.clip(np.abs(angular_velocity) / 3, 0, 5))  # reduce scale
+
+    # Combined reward with normalization to mitigate large action effects
+    rew = rew_angle * rew_velocity
+
+    return rew
+
+Generation 1
+import numpy as np
+
+def reward(action, obs):
+    """
+    Calculates the reward for the pendulum based on its angle and angular velocity.
+
+    Parameters:
+    action (np.ndarray): An array representing the torque applied to the pendulum, shape (1,).
+    obs (np.ndarray): An array representing the current state of the pendulum, shape (2,), 
+                     where obs[0] is the angle (0 to 2*pi) and obs[1] is the angular velocity 
+                     (-12*pi to 12*pi).
+
+    Returns:
+    float: The calculated reward based on the pendulum's state.
+    """
+
+    # Extracting angle and angular velocity from the observation
+    angle = obs[0]
+    angular_velocity = obs[1]
+
+    # Normalize angle difference to be within [-pi, pi]
+    angle_diff = np.abs((angle - np.pi + np.pi) % (2 * np.pi) - np.pi)
+    
+    # Calculate rewards based on angle difference with a potential threshold
+    if angle_diff < 0.05:  # 5 degrees tolerance
+        rew_angle = 1.0  # Full reward close to upright
+    elif angle_diff < 0.3:  # 17 degrees tolerance
+        rew_angle = 1.0 - (angle_diff / 0.3)  # Linear decay
+    else:
+        rew_angle = 0.0  # No reward if too far from upright
+    
+    # Penalizing for high angular velocity with a sharper penalty function
+    rew_velocity = 1.0 - np.clip(np.abs(angular_velocity) / 12, 0, 1)  # Scaling the penalty
+
+    # Combined reward with emphasis on angle, ensuring high values for both metrics
+    rew = rew_angle * rew_velocity
+
+    return rew
+
+Generation 2
+import numpy as np
+
+def reward(action, obs):
+    """
+    Calculates the reward for the pendulum based on its angle and angular velocity.
+
+    Parameters:
+    action (np.ndarray): An array representing the torque applied to the pendulum, shape (1,).
+    obs (np.ndarray): An array representing the current state of the pendulum, shape (2,), 
+                     where obs[0] is the angle (0 to 2*pi) and obs[1] is the angular velocity 
+                     (-12*pi to 12*pi).
+
+    Returns:
+    float: The calculated reward based on the pendulum's state.
+    """
+
+    # Extracting angle and angular velocity from the observation
+    angle = obs[0]
+    angular_velocity = obs[1]
+
+    # Normalize angle difference to be within [-pi, pi]
+    angle_diff = np.abs((angle - np.pi + np.pi) % (2 * np.pi) - np.pi)
+    
+    # Calculate rewards based on angle difference with a potential threshold
+    if angle_diff < 0.05:  # 5 degrees tolerance
+        rew_angle = 1.0  # Full reward close to upright
+    elif angle_diff < 0.3:  # 17 degrees tolerance
+        rew_angle = 1.0 - (angle_diff / 0.3)  # Linear decay
+    else:
+        rew_angle = 0.0  # No reward if too far from upright
+    
+    # Penalizing for high angular velocity with a sharper penalty function
+    rew_velocity = 1.0 - np.clip(np.abs(angular_velocity) / 12, 0, 1)  # Scaling the penalty
+
+    # Combined reward with emphasis on angle, ensuring high values for both metrics
+    rew = rew_angle * rew_velocity
+
+    return rew
+
+Generation 3
+import numpy as np
+
+def reward(action, obs):
+    """
+    Calculates the reward for the pendulum based on its angle and angular velocity.
+
+    Parameters:
+    action (np.ndarray): An array representing the torque applied to the pendulum, shape (1,).
+    obs (np.ndarray): An array representing the current state of the pendulum, shape (2,), 
+                     where obs[0] is the angle (0 to 2*pi) and obs[1] is the angular velocity 
+                     (-12*pi to 12*pi).
+
+    Returns:
+    float: The calculated reward based on the pendulum's state.
+    """
+
+    # Extracting angle and angular velocity from the observation
+    angle = obs[0]
+    angular_velocity = obs[1]
+
+    # Normalize angle difference to be within [-pi, pi]
+    angle_diff = np.abs((angle - np.pi + np.pi) % (2 * np.pi) - np.pi)
+    
+    # Calculate rewards based on angle difference with a potential threshold
+    if angle_diff < 0.05:  # 5 degrees tolerance
+        rew_angle = 1.0  # Full reward close to upright
+    elif angle_diff < 0.3:  # 17 degrees tolerance
+        rew_angle = 1.0 - (angle_diff / 0.3)  # Linear decay
+    else:
+        rew_angle = 0.0  # No reward if too far from upright
+    
+    # Penalizing for high angular velocity with a sharper penalty function
+    rew_velocity = 1.0 - np.clip(np.abs(angular_velocity) / 12, 0, 1)  # Scaling the penalty
+
+    # Combined reward with emphasis on angle, ensuring high values for both metrics
+    rew = rew_angle * rew_velocity
+
+    return rew
+
+Generation 4
+import numpy as np
+
+def reward(action, obs):
+    """
+    Calculates the reward for the pendulum based on its angle and angular velocity.
+
+    Parameters:
+    action (np.ndarray): An array representing the torque applied to the pendulum, shape (1,).
+    obs (np.ndarray): An array representing the current state of the pendulum, shape (2,), 
+                     where obs[0] is the angle (0 to 2*pi) and obs[1] is the angular velocity 
+                     (-12*pi to 12*pi).
+
+    Returns:
+    float: The calculated reward based on the pendulum's state.
+    """
+
+    # Extracting angle and angular velocity from the observation
+    angle = obs[0]
+    angular_velocity = obs[1]
+
+    # Normalize angle difference to be within [-pi, pi]
+    angle_diff = np.abs((angle - np.pi + np.pi) % (2 * np.pi) - np.pi)
+    
+    # Calculate rewards based on angle difference with a potential threshold
+    if angle_diff < 0.05:  # 5 degrees tolerance
+        rew_angle = 1.0  # Full reward close to upright
+    elif angle_diff < 0.3:  # 17 degrees tolerance
+        rew_angle = 1.0 - (angle_diff / 0.3)  # Linear decay
+    else:
+        rew_angle = 0.0  # No reward if too far from upright
+    
+    # Penalizing for high angular velocity with a sharper penalty function
+    rew_velocity = 1.0 - np.clip(np.abs(angular_velocity) / 12, 0, 1)  # Scaling the penalty
+
+    # Combined reward with emphasis on angle, ensuring high values for both metrics
+    rew = rew_angle * rew_velocity
+
+    return rew
