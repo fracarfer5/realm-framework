@@ -1,0 +1,151 @@
+Generation 0
+import numpy as np
+
+def reward(action, obs):
+  """Calculates the reward based on pole angle and angular velocity.
+
+  Args:
+    action: A ndarray with shape (1,) representing the force applied to the cart.
+    obs: A ndarray with shape (4,) representing the current state of the system:
+      [cart_position, pole_angle, cart_velocity, pole_angular_velocity].
+
+  Returns:
+    The reward as a float.
+  """
+
+  pole_angle = obs[1]
+  pole_velocity = obs[3]
+
+  # Reward scaling factors for angle and velocity 
+  angle_scale = 100.0 
+  vel_scale = 5.0
+    
+  # Apply shaping reward to encourage uprightness and slow-down
+
+  angle_reward = np.exp(-angle_scale * abs(pole_angle))
+  velocity_reward = np.exp(-vel_scale * abs(pole_velocity))  
+  return angle_reward * velocity_reward
+
+Generation 1
+import numpy as np
+
+def reward(action, obs):
+  """Calculates the reward based on pole angle and angular velocity.
+
+  Args:
+    action: A ndarray with shape (1,) representing the force applied to the cart.
+    obs: A ndarray with shape (4,) representing the current state of the system:
+      [cart_position, pole_angle, cart_velocity, pole_angular_velocity].
+
+  Returns:
+    The reward as a float.
+  """
+
+  pole_angle = obs[1]
+  pole_velocity = obs[3]
+
+  # Reward scaling factors for angle and velocity 
+  angle_scale = 100.0 
+  vel_scale = 5.0
+    
+  # Apply shaping reward to encourage uprightness and slow-down
+
+  angle_reward = np.exp(-angle_scale * abs(pole_angle))
+  velocity_reward = np.exp(-vel_scale * abs(pole_velocity))  
+  return angle_reward * velocity_reward
+
+Generation 2
+import numpy as np
+
+def reward(action, obs):
+  """Calculates the reward based on pole angle, angular velocity, and cart position.
+
+  Args:
+    action: A ndarray with shape (1,) representing the force applied to the cart.
+    obs: A ndarray with shape (4,) representing the current state of the system:
+      [cart_position, pole_angle, cart_velocity, pole_angular_velocity].
+
+  Returns:
+    The reward as a float.
+  """
+
+  pole_angle = obs[1]
+  pole_velocity = obs[3]
+  cart_position = obs[0]
+
+  # Reward scaling factors for angle, velocity, and position 
+  angle_scale = 100.0
+  vel_scale = 5.0
+  pos_scale = 0.1  
+
+  # Apply shaping reward to encourage uprightness, slow-down, and staying near the center
+
+  angle_reward = np.exp(-angle_scale * abs(pole_angle))
+  velocity_reward = np.exp(-vel_scale * abs(pole_velocity))  
+  position_reward = np.exp(-pos_scale * abs(cart_position)) 
+
+  return angle_reward * velocity_reward * position_reward
+
+Generation 3
+import numpy as np
+
+def reward(action, obs):
+  """Calculates the reward based on pole angle, angular velocity, and cart position.
+
+  Args:
+    action: A ndarray with shape (1,) representing the force applied to the cart.
+    obs: A ndarray with shape (4,) representing the current state of the system:
+      [cart_position, pole_angle, cart_velocity, pole_angular_velocity].
+
+  Returns:
+    The reward as a float.
+  """
+
+  pole_angle = obs[1]
+  pole_velocity = obs[3]
+  cart_position = obs[0]
+
+  # Reward scaling factors for angle, velocity, and position 
+  angle_scale = 100.0
+  vel_scale = 5.0
+  pos_scale = 0.1  
+
+  # Apply shaping reward to encourage uprightness, slow-down, and staying near the center
+
+  angle_reward = np.exp(-angle_scale * abs(pole_angle))
+  velocity_reward = np.exp(-vel_scale * abs(pole_velocity))  
+  position_reward = np.exp(-pos_scale * abs(cart_position)) 
+
+  return angle_reward * velocity_reward * position_reward
+
+Generation 4
+import numpy as np
+
+def reward(action, obs):
+  """Calculates the reward based on pole angle, angular velocity, and cart position.
+
+  Args:
+    action: A ndarray with shape (1,) representing the force applied to the cart.
+    obs: A ndarray with shape (4,) representing the current state of the system:
+      [cart_position, pole_angle, cart_velocity, pole_angular_velocity].
+
+  Returns:
+    The reward as a float.
+  """
+
+  pole_angle = obs[1]
+  pole_velocity = obs[3]
+  cart_position = obs[0]
+
+  # Reward scaling factors for angle, velocity, and position 
+  angle_scale = 100.0
+  vel_scale = 5.0
+  pos_scale = 0.1  
+
+  # Apply shaping reward to encourage uprightness, slow-down, and staying near the center
+
+  angle_reward = np.exp(-angle_scale * abs(pole_angle))
+  velocity_reward = np.exp(-vel_scale * abs(pole_velocity))  
+  position_reward = np.exp(-pos_scale * abs(cart_position)) 
+
+  return angle_reward * velocity_reward * position_reward
