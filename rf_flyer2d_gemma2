@@ -1,0 +1,154 @@
+Generation 0
+import numpy as np
+
+def reward(action, obs):
+    """
+    Calculates the reward for a given action and observation in the CartPole environment.
+
+    Args:
+        action (ndarray): A 1D array representing the force applied to the cart (-15 to 15).
+        obs (ndarray): A 1D array representing the observation of the environment [cart_position, pole_angle, cart_velocity, pole_angular_velocity].
+
+    Returns:
+        float: The reward value.
+    """
+    cart_pos = obs[0]
+    pole_angle = obs[1]
+    pole_vel = obs[3]
+
+    # Reward for keeping the pole upright
+    rew = -10 * np.abs((pole_angle - np.pi)) 
+
+    # Penalize large cart movements
+    rew -= 0.1 * np.abs(cart_pos)
+
+    # Encourage stillness by penalizing excess force used
+    rew -= 0.01 * np.abs(action)
+
+
+
+    return rew
+
+Generation 1
+import numpy as np
+
+def reward(action, obs):
+    """
+    Calculates the reward for a given action and observation in the CartPole environment.
+
+    Args:
+        action (ndarray): A 1D array representing the force applied to the cart (-15 to 15).
+        obs (ndarray): A 1D array representing the observation of the environment [cart_position, pole_angle, cart_velocity, pole_angular_velocity].
+
+    Returns:
+        float: The reward value.
+    """
+    cart_pos = obs[0]
+    pole_angle = obs[1]
+    pole_vel = obs[3]
+
+    # Reward for keeping the pole upright
+    rew = -10 * np.abs((pole_angle - np.pi)) 
+
+    # Penalize large cart movements
+    rew -= 0.1 * np.abs(cart_pos)
+
+    # Encourage stillness by penalizing excess force used
+    rew -= 0.01 * np.abs(action)
+
+
+
+    return rew
+
+Generation 2
+import numpy as np
+
+def reward(action, obs):
+    """
+    Calculates the reward for a given action and observation in the CartPole environment.
+
+    Args:
+        action (ndarray): A 1D array representing the force applied to the cart (-15 to 15).
+        obs (ndarray): A 1D array representing the observation of the environment [cart_position, pole_angle, cart_velocity, pole_angular_velocity].
+
+    Returns:
+        float: The reward value.
+    """
+    cart_pos = obs[0]
+    pole_angle = obs[1]
+    pole_vel = obs[3]
+
+    # Reward for keeping the pole upright
+    rew = -10 * np.abs((pole_angle - np.pi)) 
+
+    # Penalize large cart movements
+    rew -= 0.1 * np.abs(cart_pos)
+
+    # Encourage stillness by penalizing excess force used
+    rew -= 0.01 * np.abs(action)
+
+
+
+    return rew
+
+Generation 3
+import numpy as np
+
+def reward(action, obs):
+    """
+    Calculates the reward for a given action and observation in the CartPole environment.
+
+    Args:
+        action (ndarray): A 1D array representing the force applied to the cart (-15 to 15).
+        obs (ndarray): A 1D array representing the observation of the environment [cart_position, pole_angle, cart_velocity, pole_angular_velocity].
+
+    Returns:
+        float: The reward value.
+    """
+    cart_pos = obs[0]
+    pole_angle = obs[1]
+    pole_vel = obs[3]
+
+    # Reward for keeping the pole upright
+    rew = -10 * np.abs((pole_angle - np.pi)) 
+
+    # Penalize large cart movements
+    rew -= 0.1 * np.abs(cart_pos)
+
+    # Encourage stillness by penalizing excess force used
+    rew -= 0.01 * np.abs(action)
+
+
+
+    return rew
+
+Generation 4
+import numpy as np
+
+def reward(action, obs):
+    """
+    Calculates the reward for a given action and observation in the CartPole environment.
+
+    Args:
+        action (ndarray): A 1D array representing the force applied to the cart (-15 to 15).
+        obs (ndarray): A 1D array representing the observation of the environment [cart_position, pole_angle, cart_velocity, pole_angular_velocity].
+
+    Returns:
+        float: The reward value.
+    """
+    cart_pos = obs[0]
+    pole_angle = obs[1]
+    pole_vel = obs[3]
+
+    # Reward for keeping the pole upright
+    rew = -10 * np.abs((pole_angle - np.pi)) 
+
+    # Penalize large cart movements
+    rew -= 0.1 * np.abs(cart_pos)
+
+    # Encourage stillness by penalizing excess force used
+    rew -= 0.01 * np.abs(action)
+
+
+
+    return rew
