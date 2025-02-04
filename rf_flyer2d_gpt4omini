@@ -1,0 +1,279 @@
+Generation 0
+import numpy as np
+
+def reward(action, obs):
+    """
+    Calculate the reward for the 2D Flyer system based on its current state.
+
+    Parameters:
+    action (np.ndarray): The forces applied by the left and right propellers, shape (2,).
+    obs (np.ndarray): The current state of the system containing position, velocity, and angle,
+                     shape (6,).
+
+    Returns:
+    float: The calculated reward.
+    """
+    # Desired goal state
+    goal_state = np.array([0, 0, 0, 0, 0, 0])
+    
+    # Calculate the distance from the goal state
+    state_error = obs - goal_state
+    
+    # Define a threshold for being "close enough" to the goal state
+    position_threshold = 0.05       # 5 cm
+    velocity_threshold = 0.5        # 0.5 m/s
+    angle_threshold = 0.1           # 0.1 rad
+
+    # Calculate the distance in position and velocity
+    position_error = np.linalg.norm(state_error[:2])  # Euclidean distance in 2D position space
+    angle_error = abs(state_error[2])                  # Angle error
+    velocity_error = np.linalg.norm(state_error[3:5])  # Velocity in the 2D velocity space
+    
+    # Initialize the reward
+    rew = 0.0
+
+    # Reward for being close to the goal state
+    if all(abs(state_error) < np.array([position_threshold, position_threshold, angle_threshold, 
+                                         velocity_threshold, velocity_threshold, 10 * np.pi])): 
+        rew += 100.0  # High reward for reaching or being close to the goal
+    
+    # Penalize for being too far from the goal state
+    else:
+        # Calculate penalties for position, angle, and velocity
+        if position_error > position_threshold:
+            rew -= 10.0 * position_error  # Linear penalty for position error
+
+        if angle_error > angle_threshold:
+            rew -= 5.0 * angle_error      # Linear penalty for angle error
+
+        if velocity_error > velocity_threshold:
+            rew -= 2.0 * velocity_error    # Linear penalty for velocity error
+
+    # Encourage lesser forces applied to maintain stability
+    force_penalty = np.linalg.norm(action)  # Penalize based on the magnitude of the forces applied
+    rew -= 5.0 * force_penalty  # Stabilizing penalty
+
+    return rew
+
+Generation 1
+import numpy as np
+
+def reward(action, obs):
+    """
+    Calculate the reward for the 2D Flyer system based on its current state.
+
+    Parameters:
+    action (np.ndarray): The forces applied by the left and right propellers, shape (2,).
+    obs (np.ndarray): The current state of the system containing position, velocity, and angle,
+                     shape (6,).
+
+    Returns:
+    float: The calculated reward.
+    """
+    # Desired goal state
+    goal_state = np.array([0, 0, 0, 0, 0, 0])
+    
+    # Calculate the distance from the goal state
+    state_error = obs - goal_state
+    
+    # Define a threshold for being "close enough" to the goal state
+    position_threshold = 0.05       # 5 cm
+    velocity_threshold = 0.5        # 0.5 m/s
+    angle_threshold = 0.1           # 0.1 rad
+
+    # Calculate the distance in position and velocity
+    position_error = np.linalg.norm(state_error[:2])  # Euclidean distance in 2D position space
+    angle_error = abs(state_error[2])                  # Angle error
+    velocity_error = np.linalg.norm(state_error[3:5])  # Velocity in the 2D velocity space
+    
+    # Initialize the reward
+    rew = 0.0
+
+    # Reward for being close to the goal state
+    if all(abs(state_error) < np.array([position_threshold, position_threshold, angle_threshold, 
+                                         velocity_threshold, velocity_threshold, 10 * np.pi])): 
+        rew += 100.0  # High reward for reaching or being close to the goal
+    
+    # Penalize for being too far from the goal state
+    else:
+        # Calculate penalties for position, angle, and velocity
+        if position_error > position_threshold:
+            rew -= 10.0 * position_error  # Linear penalty for position error
+
+        if angle_error > angle_threshold:
+            rew -= 5.0 * angle_error      # Linear penalty for angle error
+
+        if velocity_error > velocity_threshold:
+            rew -= 2.0 * velocity_error    # Linear penalty for velocity error
+
+    # Encourage lesser forces applied to maintain stability
+    force_penalty = np.linalg.norm(action)  # Penalize based on the magnitude of the forces applied
+    rew -= 5.0 * force_penalty  # Stabilizing penalty
+
+    return rew
+
+Generation 2
+import numpy as np
+
+def reward(action, obs):
+    """
+    Calculate the reward for the 2D Flyer system based on its current state.
+
+    Parameters:
+    action (np.ndarray): The forces applied by the left and right propellers, shape (2,).
+    obs (np.ndarray): The current state of the system containing position, velocity, and angle,
+                     shape (6,).
+
+    Returns:
+    float: The calculated reward.
+    """
+    # Desired goal state
+    goal_state = np.array([0, 0, 0, 0, 0, 0])
+    
+    # Calculate the distance from the goal state
+    state_error = obs - goal_state
+    
+    # Define a threshold for being "close enough" to the goal state
+    position_threshold = 0.05       # 5 cm
+    velocity_threshold = 0.5        # 0.5 m/s
+    angle_threshold = 0.1           # 0.1 rad
+
+    # Calculate the distance in position and velocity
+    position_error = np.linalg.norm(state_error[:2])  # Euclidean distance in 2D position space
+    angle_error = abs(state_error[2])                  # Angle error
+    velocity_error = np.linalg.norm(state_error[3:5])  # Velocity in the 2D velocity space
+    
+    # Initialize the reward
+    rew = 0.0
+
+    # Reward for being close to the goal state
+    if all(abs(state_error) < np.array([position_threshold, position_threshold, angle_threshold, 
+                                         velocity_threshold, velocity_threshold, 10 * np.pi])): 
+        rew += 100.0  # High reward for reaching or being close to the goal
+    
+    # Penalize for being too far from the goal state
+    else:
+        # Calculate penalties for position, angle, and velocity
+        if position_error > position_threshold:
+            rew -= 10.0 * position_error  # Linear penalty for position error
+
+        if angle_error > angle_threshold:
+            rew -= 5.0 * angle_error      # Linear penalty for angle error
+
+        if velocity_error > velocity_threshold:
+            rew -= 2.0 * velocity_error    # Linear penalty for velocity error
+
+    # Encourage lesser forces applied to maintain stability
+    force_penalty = np.linalg.norm(action)  # Penalize based on the magnitude of the forces applied
+    rew -= 5.0 * force_penalty  # Stabilizing penalty
+
+    return rew
+
+Generation 3
+import numpy as np
+
+def reward(action, obs):
+    """
+    Calculate the reward for the 2D Flyer system based on its current state.
+
+    Parameters:
+    action (np.ndarray): The forces applied by the left and right propellers, shape (2,).
+    obs (np.ndarray): The current state of the system containing position, velocity, and angle,
+                     shape (6,).
+
+    Returns:
+    float: The calculated reward.
+    """
+    # Desired goal state
+    goal_state = np.array([0, 0, 0, 0, 0, 0])
+    
+    # Calculate the distance from the goal state
+    state_error = obs - goal_state
+    
+    # Define a threshold for being "close enough" to the goal state
+    position_threshold = 0.05       # 5 cm
+    velocity_threshold = 0.5        # 0.5 m/s
+    angle_threshold = 0.1           # 0.1 rad
+
+    # Calculate the distance in position and velocity
+    position_error = np.linalg.norm(state_error[:2])  # Euclidean distance in 2D position space
+    angle_error = abs(state_error[2])                  # Angle error
+    velocity_error = np.linalg.norm(state_error[3:5])  # Velocity in the 2D velocity space
+    
+    # Initialize the reward
+    rew = 0.0
+
+    # Reward for being close to the goal state
+    if all(abs(state_error) < np.array([position_threshold, position_threshold, angle_threshold, 
+                                         velocity_threshold, velocity_threshold, 10 * np.pi])): 
+        rew += 100.0  # High reward for reaching or being close to the goal
+    
+    # Penalize for being too far from the goal state
+    else:
+        # Calculate penalties for position, angle, and velocity
+        if position_error > position_threshold:
+            rew -= 10.0 * position_error  # Linear penalty for position error
+
+        if angle_error > angle_threshold:
+            rew -= 5.0 * angle_error      # Linear penalty for angle error
+
+        if velocity_error > velocity_threshold:
+            rew -= 2.0 * velocity_error    # Linear penalty for velocity error
+
+    # Encourage lesser forces applied to maintain stability
+    force_penalty = np.linalg.norm(action)  # Penalize based on the magnitude of the forces applied
+    rew -= 5.0 * force_penalty  # Stabilizing penalty
+
+    return rew
+
+Generation 4
+import numpy as np
+
+def reward(action, obs):
+    """
+    Calculate the reward for the 2D Flyer system based on its current state.
+
+    Parameters:
+    action (np.ndarray): The forces applied by the left and right propellers, shape (2,).
+    obs (np.ndarray): The current state of the system containing position, velocity, and angle,
+                     shape (6,).
+
+    Returns:
+    float: The calculated reward.
+    """
+    # Desired goal state
+    goal_state = np.array([0, 0, 0, 0, 0, 0])
+    
+    # Calculate the distance from the goal state
+    state_error = obs - goal_state
+    
+    # Define a threshold for being "close enough" to the goal state
+    position_threshold = 0.05       # 5 cm
+    velocity_threshold = 0.5        # 0.5 m/s
+    angle_threshold = 0.1           # 0.1 rad
+
+    # Calculate the state errors
+    position_error = np.linalg.norm(state_error[:2])  # Euclidean distance in 2D position space
+    angle_error = abs(state_error[2])                  # Angle error
+    velocity_error = np.linalg.norm(state_error[3:5])  # Velocity in the 2D velocity space
+    
+    # Initialize the reward
+    rew = 0.0
+
+    # Reward structure based on proximity to goal state
+    if position_error < position_threshold and angle_error < angle_threshold and velocity_error < velocity_threshold:
+        rew += 100.0  # High reward for reaching or being close to the goal
+    else:
+        # Scaled penalties for position, angle, and velocity errors using exponential decay
+        rew -= 20.0 * position_error
+        rew -= 10.0 * angle_error
+        rew -= 5.0 * velocity_error
+
+    # Encourage stability by penalizing high force magnitudes
+    force_penalty = np.linalg.norm(action)  
+    rew -= 5.0 * force_penalty  # Penalize large forces used
+
+    # Add a small negative reward for every time step to encourage quicker convergence
+    rew -= 0.1
+
+    return rew
