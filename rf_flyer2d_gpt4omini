@@ -1,0 +1,190 @@
+Generation 0
+import numpy as np
+
+def reward(action, obs):
+    """
+    Calculate the reward for the given action and observation of the cart-pole system.
+
+    Parameters:
+    action (ndarray): The action taken by the agent, an array with shape (1,).
+    obs (ndarray): The observation from the environment, an array with shape (4,):
+                   - obs[0]: Cart position (in meters, range: -2.4 to 2.4)
+                   - obs[1]: Pole angle (in radians, range: 0 to 2*pi)
+                   - obs[2]: Cart velocity (in meters per second, range: -10 to 10)
+                   - obs[3]: Pole angular velocity (in radians per second, range: -5*pi to 5*pi)
+
+    Returns:
+    float: The computed reward based on the current state of the cart and pole.
+    """
+    cart_position = obs[0]      # Cart position
+    pole_angle = obs[1]         # Pole angle
+    cart_velocity = obs[2]      # Cart velocity
+    pole_angular_velocity = obs[3]  # Pole angular velocity
+
+    # Reward components
+    position_reward = -abs(cart_position) ** 2  # Penalizes distance from 0 position more severely
+    angle_reward = -((pole_angle - np.pi)**2 + 0.1 * (pole_angle - np.pi)**4)  # Seeks to maintain upright position with sharper penalties for further angles
+    velocity_reward = -abs(cart_velocity) ** 2    # Squared penalty for high cart velocity
+    angular_velocity_reward = -abs(pole_angular_velocity) ** 2  # Squared penalty for high pole angular velocity
+
+    # Combine rewards with higher emphasis on maintaining the pole upright
+    total_reward = position_reward + angle_reward + velocity_reward + angular_velocity_reward
+
+    return total_reward
+
+Generation 1
+import numpy as np
+
+def reward(action, obs):
+    """
+    Calculate the reward for the given action and observation of the cart-pole system.
+
+    Parameters:
+    action (ndarray): The action taken by the agent, an array with shape (1,).
+    obs (ndarray): The observation from the environment, an array with shape (4,):
+                   - obs[0]: Cart position (in meters, range: -2.4 to 2.4)
+                   - obs[1]: Pole angle (in radians, range: 0 to 2*pi)
+                   - obs[2]: Cart velocity (in meters per second, range: -10 to 10)
+                   - obs[3]: Pole angular velocity (in radians per second, range: -5*pi to 5*pi)
+
+    Returns:
+    float: The computed reward based on the current state of the cart and pole.
+    """
+    cart_position = obs[0]      # Cart position
+    pole_angle = obs[1]         # Pole angle
+    cart_velocity = obs[2]      # Cart velocity
+    pole_angular_velocity = obs[3]  # Pole angular velocity
+
+    # Reward components
+    position_reward = -abs(cart_position) ** 2  # Penalizes distance from 0 position more severely
+    angle_reward = -((pole_angle - np.pi)**2 + 0.1 * (pole_angle - np.pi)**4)  # Seeks to maintain upright position with sharper penalties for further angles
+    velocity_reward = -abs(cart_velocity) ** 2    # Squared penalty for high cart velocity
+    angular_velocity_reward = -abs(pole_angular_velocity) ** 2  # Squared penalty for high pole angular velocity
+
+    # Combine rewards with higher emphasis on maintaining the pole upright
+    total_reward = position_reward + angle_reward + velocity_reward + angular_velocity_reward
+
+    return total_reward
+
+Generation 2
+import numpy as np
+
+def reward(action, obs):
+    """
+    Calculate the reward for the given action and observation of the cart-pole system.
+
+    Parameters:
+    action (ndarray): The action taken by the agent, an array with shape (1,).
+    obs (ndarray): The observation from the environment, an array with shape (4,):
+                   - obs[0]: Cart position (in meters, range: -2.4 to 2.4)
+                   - obs[1]: Pole angle (in radians, range: 0 to 2*pi)
+                   - obs[2]: Cart velocity (in meters per second, range: -10 to 10)
+                   - obs[3]: Pole angular velocity (in radians per second, range: -5*pi to 5*pi)
+
+    Returns:
+    float: The computed reward based on the current state of the cart and pole.
+    """
+    cart_position = obs[0]      # Cart position
+    pole_angle = obs[1]         # Pole angle
+    cart_velocity = obs[2]      # Cart velocity
+    pole_angular_velocity = obs[3]  # Pole angular velocity
+
+    # Initialize base penalties
+    position_reward = -abs(cart_position)  # Reward becomes more negative with distance from zero
+    angle_reward = -((pole_angle - np.pi)**2)  # Penalize based on squared distance from upright position
+    velocity_reward = -np.abs(cart_velocity)   # Penalize based on absolute cart velocity
+    angular_velocity_reward = -np.abs(pole_angular_velocity)  # Penalize based on absolute pole angular velocity
+
+    # Additional angle reward component for better stability maintenance
+    if abs(pole_angle - np.pi) < 0.1:  # If the pole is near upright, give a small positive boost to encourage stability
+        angle_reward += 1.0  # Boost reward for small angle deviations
+
+    # Combine rewards
+    total_reward = (position_reward * 0.5 +  # Weight for cart position
+                    angle_reward * 2.0 +  # Weight for maintaining upright angle
+                    velocity_reward * 0.5 +  # Lesser weight for cart motion
+                    angular_velocity_reward * 1.0)  # Emphasize pole stability
+
+    return total_reward
+
+Generation 3
+import numpy as np
+
+def reward(action, obs):
+    """
+    Calculate the reward for the given action and observation of the cart-pole system.
+
+    Parameters:
+    action (ndarray): The action taken by the agent, an array with shape (1,).
+    obs (ndarray): The observation from the environment, an array with shape (4,):
+                   - obs[0]: Cart position (in meters, range: -2.4 to 2.4)
+                   - obs[1]: Pole angle (in radians, range: 0 to 2*pi)
+                   - obs[2]: Cart velocity (in meters per second, range: -10 to 10)
+                   - obs[3]: Pole angular velocity (in radians per second, range: -5*pi to 5*pi)
+
+    Returns:
+    float: The computed reward based on the current state of the cart and pole.
+    """
+    cart_position = obs[0]      # Cart position
+    pole_angle = obs[1]         # Pole angle
+    cart_velocity = obs[2]      # Cart velocity
+    pole_angular_velocity = obs[3]  # Pole angular velocity
+
+    # Initialize base penalties
+    position_reward = -abs(cart_position)  # Reward becomes more negative with distance from zero
+    angle_reward = -((pole_angle - np.pi)**2)  # Penalize based on squared distance from upright position
+    velocity_reward = -np.abs(cart_velocity)   # Penalize based on absolute cart velocity
+    angular_velocity_reward = -np.abs(pole_angular_velocity)  # Penalize based on absolute pole angular velocity
+
+    # Additional angle reward component for better stability maintenance
+    if abs(pole_angle - np.pi) < 0.1:  # If the pole is near upright, give a small positive boost to encourage stability
+        angle_reward += 1.0  # Boost reward for small angle deviations
+
+    # Combine rewards
+    total_reward = (position_reward * 0.5 +  # Weight for cart position
+                    angle_reward * 2.0 +  # Weight for maintaining upright angle
+                    velocity_reward * 0.5 +  # Lesser weight for cart motion
+                    angular_velocity_reward * 1.0)  # Emphasize pole stability
+
+    return total_reward
+
+Generation 4
+import numpy as np
+
+def reward(action, obs):
+    """
+    Calculate the reward for the given action and observation of the cart-pole system.
+
+    Parameters:
+    action (ndarray): The action taken by the agent, an array with shape (1,).
+    obs (ndarray): The observation from the environment, an array with shape (4,):
+                   - obs[0]: Cart position (in meters, range: -2.4 to 2.4)
+                   - obs[1]: Pole angle (in radians, range: 0 to 2*pi)
+                   - obs[2]: Cart velocity (in meters per second, range: -10 to 10)
+                   - obs[3]: Pole angular velocity (in radians per second, range: -5*pi to 5*pi)
+
+    Returns:
+    float: The computed reward based on the current state of the cart and pole.
+    """
+    cart_position = obs[0]      # Cart position
+    pole_angle = obs[1]         # Pole angle
+    cart_velocity = obs[2]      # Cart velocity
+    pole_angular_velocity = obs[3]  # Pole angular velocity
+
+    # Initialize base penalties
+    position_reward = -abs(cart_position)  # Reward becomes more negative with distance from zero
+    angle_reward = -((pole_angle - np.pi)**2)  # Penalize based on squared distance from upright position
+    velocity_reward = -np.abs(cart_velocity)   # Penalize based on absolute cart velocity
+    angular_velocity_reward = -np.abs(pole_angular_velocity)  # Penalize based on absolute pole angular velocity
+
+    # Additional angle reward component for better stability maintenance
+    if abs(pole_angle - np.pi) < 0.1:  # If the pole is near upright, give a small positive boost to encourage stability
+        angle_reward += 1.0  # Boost reward for small angle deviations
+
+    # Combine rewards
+    total_reward = (position_reward * 0.5 +  # Weight for cart position
+                    angle_reward * 2.0 +  # Weight for maintaining upright angle
+                    velocity_reward * 0.5 +  # Lesser weight for cart motion
+                    angular_velocity_reward * 1.0)  # Emphasize pole stability
+
+    return total_reward
