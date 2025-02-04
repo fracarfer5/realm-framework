@@ -1,0 +1,50 @@
+PROMPT_REWARD_CODING = """### Task: Reward Function Coding
+You must evaluate a set of conditions and propose reward function code candidates that follow these conditions to return a reward according to the desired policy.
+
+### System specifications
+{system_description}
+
+### Reward function specifications
+{reward_specification}
+
+### Instructions
+
+- Write the implementation of the `reward_function` based on the above criteria.
+- Provide only the code without any additional messages or explanations.
+- Generate at least {num_candidates} DIFFERENT reward function candidates.
+- Feel free to suggest improvements or modifications to the reward function specifications.
+- Write every function with its respective documentation and comments to explain the code.
+- Independently of the reward functions generated, you must generate the reward function in the following signature:
+```python
+{rf_format}
+```
+
+PROMPT_OPTIMIZER = """
+### System specification
+{system_description}
+
+### Reward function specification
+{reward_specification}
+
+### Task: Reward Function Optimization
+You are given a reward function candidate and the evaluated metrics. Your task is to analyze the reward function candidate and the evaluated metrics and return a new, improved reward function that can better solve the task.
+The feedback includes the reward function candidate and its metric values respectively.
+
+### Reward function candidate
+{reward_function_candidates}
+
+### Instructions:
+To complete this task, you need to:
+- Evaluate the feedbacks and identify any issues or limitations in the current reward function.
+- Propose an improved version of the reward function.
+- If necessary, return an entirely new reward function that addresses the identified issues and improves the agent's performance.
+- Use only NumPy and Python standard libraries.
+- Remember not to change the signature of the reward function.
+- You must return only the revised reward function code in the following signature:
+
+```python
+{rf_format}
+```
+
+Now, it is your turn.
+"""
